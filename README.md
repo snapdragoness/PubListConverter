@@ -63,3 +63,7 @@ If everything works correctly, you should get the following files:
 1. `mainPubs.html` - the main publications list with all publications and then sub lists of all sub projects (with headers that include anchors). Normally, the contents of this file can be copied and pasted into a website (note that this file only contains the HTML contents, which makes it suitable for dropping into WordPress or similar sites).
 1. `mainPubs_bib.html` - a page that contains the BibTeX for each entry on the page above, with headers that include anchors based on cite key. This page should be copied to the URL specified as the separate BibTeX page.
 1. A series of sub-project HTML pages, each named `<project identifier>SubPubs.html`. These are contatenated at the end of `mainPubs.html`, but could be used on their own. Note that Author-Izer links will only work if the page was previously authorized!
+
+For example, the following run produces the page at https://pixl.nmsu.edu/publications and https://pixl.nmsu.edu/pixl-pubs-bibtex. 
+
+`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" TeC "Team Coordination Game" photoNav "PhotoNav" DGO "Digital Game Objects" gameCoord "Coordination in Games"`
