@@ -2,11 +2,18 @@
 # $1: location of the base .bib file to be used for generating the publication list
 # $2: location of the reference format to be used for generating references
 # $3: the full URL to the page that will house the bibtex for each entry with escape characters for forward slashes
+# $4: any filter conditions for the source BibTeX (e.g., an author name) in quotes with escape characters for quotes that are part of the condition; see https://www.lri.fr/~filliatr/bibtex2html/doc/manual.html for details; to use the whole file, use ""
 # remaining optional arguments go in pairs, the first is a Project tag the second is the human-readable header for the resulting HTML
 # for each pair of remaining arguments, a header will be created that contains the subset of bibliographic entries that match the Project tag
 
 # cleanup the base .bib file and setup temporary files
-genWholeBib="bib2bib --remove Address --remove Location --remove Publisher --remove url --remove Issn --remove Isbn --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Bdsk-File-1 -ob "
+genWholeBib="bib2bib"
+if [ ! -z "$4" ]
+then
+	genWholeBib+=" -c "
+	genWholeBib+=$4
+fi
+genWholeBib+=" --remove Address --remove Location --remove Publisher --remove url --remove Issn --remove Isbn --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Bdsk-File-1 -ob "
 genWholeBib+="mainPubs.bib"
 genWholeBib+=" -oc mainPubs-cites "
 genWholeBib+=$1
@@ -35,14 +42,14 @@ tr -d '\r\n' < mainPubs.html > mainPubs-alt.html
 
 sed -f delete.sed mainPubs-alt.html >mainPubs.html
 
-genBibPage="bib2bib --remove authorizer --remove Local-Full-Text --remove Local-Poster --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Bdsk-File-1 -ob mainPubs-bib.bib"
+genBibPage="bib2bib --remove authorizer --remove Local-Full-Text --remove Local-Poster --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Authorizer --remove Bdsk-File-1 -ob mainPubs-bib.bib"
 genBibPage+=$1
 
 bibtex2html -style SIGCHI-Reference-Format --macros-from macros.tex -d -nodoc -r -nokeywords mainPubs-bib.bib 
 
 sed -e '1,8d' -i '' mainPubs_bib.html
 
-i="4"
+i="5"
 while [ "$i" -lt "$#" ]
 do
 	subPubCmd="./subPubsGen.sh \""

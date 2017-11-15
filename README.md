@@ -57,9 +57,11 @@ To make use of this functionality, you need to provide a space-separated list of
 
 ### Running the Converter Scripts
 
-To run the scripts, after making the modifications above, simply run:
+In addition to all of the above, you can filter the BibTeX file using bib2bib's condition filter functionality. The filter should be included in quotes as one of the command line options (empty quotes are necessary to use the whole file, unfiltered). See the bib2bib documentation (sections 3.1 and 3.2) for details: (https://www.lri.fr/~filliatr/bibtex2html/doc/manual.html).
 
-`./mainPubsGen.sh <source BibTeX file> <BST file> <URL that will hold the BibTeX page, in quotes, _with all forward slashes escaped_> (pairs of project identifiers and human-readable project identifiers in quotes)`
+To run the scripts, after making the modifications above, simply (ha ha) run:
+
+`./mainPubsGen.sh <source BibTeX file> <BST file> <URL that will hold the BibTeX page, in quotes, _with all forward slashes escaped_> <a bib2bib condition filter in quotes (empty quotes to use the whole file)> (0 or more pairs of project identifiers and human-readable project identifiers in quotes)`
 
 If everything works correctly, you should get the following files:
 
@@ -69,4 +71,9 @@ If everything works correctly, you should get the following files:
 
 For example, the following run produces the page at https://pixl.nmsu.edu/publications and https://pixl.nmsu.edu/pixl-pubs-bibtex. 
 
-`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" TeC "Team Coordination Game" photoNav "PhotoNav" DGO "Digital Game Objects" gameCoord "Coordination in Games"`
+`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" "" TeC "Team Coordination Game" photoNav "PhotoNav" DGO "Digital Game Objects" gameCoord "Coordination in Games"`
+
+The following produces the publications by me (author Toups):
+
+`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" "'Author : \"Toups\"'"`
+
