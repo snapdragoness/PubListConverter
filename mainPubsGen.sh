@@ -45,7 +45,7 @@ sed -f delete.sed mainPubs-alt.html >mainPubs.html
 genBibPage="bib2bib --remove authorizer --remove Local-Full-Text --remove Local-Poster --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Authorizer --remove Bdsk-File-1 -ob mainPubs-bib.bib"
 genBibPage+=$1
 
-bibtex2html -style SIGCHI-Reference-Format --macros-from macros.tex -d -nodoc -r -nokeywords mainPubs-bib.bib 
+bibtex2html -style $3 --macros-from macros.tex -d -nodoc -r -nokeywords mainPubs-bib.bib 
 
 sed -e '1,8d' -i '' mainPubs_bib.html
 
