@@ -2,7 +2,7 @@
 A set of scripts that use Bib2Bib and Bibtex2HTML to produce neatly formatted HTML reference lists that are organized based on metadata.
 This project was created largely to simplify creating academic websites with links to full texts (especially via the ACM Author-Izer), hopefully you will find it helpful too. Examples of the resulting output can be found at my [PIxL Lab Publications Page](https://pixl.nmsu.edu/publications), as well as this sample:
 
-> Zachary O. Toups, Nicole K. Crenshaw, Rina R. Wehbe, Gustavo F. Tondello, and Lennart E. Nacke. 2016. “The Collecting Itself Feels Good”: Towards Collection Interfaces for Digital Game Objects. In *Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY ’16)*. 276–290. [ bib | doi | full text via authorizer ]
+> Z O. Toups, Nicole K. Crenshaw, Rina R. Wehbe, Gustavo F. Tondello, and Lennart E. Nacke. 2016. “The Collecting Itself Feels Good”: Towards Collection Interfaces for Digital Game Objects. In *Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY ’16)*. 276–290. [ bib | doi | full text via authorizer ]
 
 ## Capabilities:
 
