@@ -8,10 +8,10 @@
 
 # cleanup the base .bib file and setup temporary files
 genWholeBib="bib2bib"
-if [ ! -z "$4" ]
+if [ ! -z "$3" ]
 then
 	genWholeBib+=" -c "
-	genWholeBib+=$4
+	genWholeBib+=$3
 fi
 genWholeBib+=" --remove Address --remove Location --remove Publisher --remove url --remove Issn --remove Isbn --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Bdsk-File-1 -ob "
 genWholeBib+="mainPubs.bib"
@@ -22,9 +22,10 @@ echo $genWholeBib
 eval $genWholeBib
 
 # generate HTML
-genWholeHTML="bibtex2html -style "
-genWholeHTML+=$2
-genWholeHTML+=" --macros-from macros.tex -d -nodoc -r -nokeywords -nf Authorizer \"full text via authorizer\" -nf Local-Full-Text \"full text\"  -nf Local-Poster \"poster\" -citefile mainPubs-cites mainPubs.bib"
+#genWholeHTML="bibtex2html -style "
+genWholeHTML="bibtex2html "
+#genWholeHTML+=$2
+genWholeHTML+=" --macros-from macros.tex -d -nodoc -r -nokeywords -t Publications -noabstract -nf Authorizer \"full text via authorizer\" -nf Local-Full-Text \"full text\"  -nf Local-Poster \"poster\" -citefile mainPubs-cites mainPubs.bib"
 
 echo $genWholeHTML
 eval $genWholeHTML
@@ -32,7 +33,7 @@ eval $genWholeHTML
 sed -i.bak 's/>DOI</>doi</g' mainPubs.html
 
 replaceBibLink="sed -i.bak 's/mainPubs_bib.html/"
-replaceBibLink+=$3
+replaceBibLink+=$2
 replaceBibLink+="/g' mainPubs.html"
 
 echo $replaceBibLink
@@ -45,19 +46,19 @@ sed -f delete.sed mainPubs-alt.html >mainPubs.html
 genBibPage="bib2bib --remove authorizer --remove Local-Full-Text --remove Local-Poster --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Authorizer --remove Bdsk-File-1 -ob mainPubs-bib.bib"
 genBibPage+=$1
 
-bibtex2html -style $3 --macros-from macros.tex -d -nodoc -r -nokeywords mainPubs-bib.bib 
+bibtex2html -style $2 --macros-from macros.tex -d -nodoc -r -nokeywords mainPubs-bib.bib 
 
 sed -e '1,8d' -i '' mainPubs_bib.html
 
-i="5"
+i="4"
 while [ "$i" -lt "$#" ]
 do
 	subPubCmd="./subPubsGen.sh \""
 	subPubCmd+=$1
 	subPubCmd+="\" \""
+	#subPubCmd+=$2
+	#subPubCmd+="\" \""
 	subPubCmd+=$2
-	subPubCmd+="\" \""
-	subPubCmd+=$3
 	subPubCmd+="\" "	
 	subPubCmd+=${!i}
 	filename=${!i}
