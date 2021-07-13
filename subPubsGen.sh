@@ -8,7 +8,7 @@
 
 # cleanup and filter the base .bib file and setup temporary files
 genSubBib="bib2bib -c 'Projects : \""
-genSubBib+=$4
+genSubBib+=$3
 genSubBib+="\"' --remove Address --remove Location --remove Publisher --remove url --remove Issn --remove Isbn --remove Date-Added --remove Date-Modified --remove Bdsk-Url-1 --remove Bdsk-Url-2 --remove Bdsk-File-1 -ob subPubsTemp.bib -oc subPubsTemp-cites "
 genSubBib+=$1
 
@@ -16,8 +16,9 @@ echo $genSubBib
 eval $genSubBib
 
 # generate HTML
-genSubHTML="bibtex2html -style "
-genSubHTML+=$2
+#genSubHTML="bibtex2html -style "
+genSubHTML="bibtex2html "
+#genSubHTML+=$2
 genSubHTML+=" --macros-from macros.tex -d -nodoc -r -nokeywords -nf Authorizer \"full text via authorizer\" -nf Local-Full-Text \"full text\"  -nf Local-Poster \"poster\" -citefile subPubsTemp-cites subPubsTemp.bib"
 
 echo $genSubHTML
@@ -26,7 +27,7 @@ eval $genSubHTML
 sed -i.bak 's/>DOI</>doi</g' subPubsTemp.html
 
 replaceBibLink="sed -i.bak 's/subPubsTemp_bib.html/"
-replaceBibLink+=$3
+replaceBibLink+=$2
 replaceBibLink+="/g' subPubsTemp.html"
 
 echo $replaceBibLink
@@ -44,11 +45,11 @@ else
 fi
 
 headerLine="<a name=\""
-headerLine+=$4
+headerLine+=$3
 headerLine+="\">"
 headerLine+="</a>"
 headerLine+="<h2>"
-headerLine+=$5
+headerLine+=$4
 headerLine+="</h2>"
 
 (echo $headerLine; cat subPubsTemp.html) > subPubsTemp2.html
@@ -58,7 +59,7 @@ rm subPubsTemp.html.bak
 rm subPubsTemp.html
 #rm subPubsTemp2.html
 
-filename=$4
+filename=$3
 filename+="SubPubs.html"
 
 mv subPubsTemp2.html $filename
