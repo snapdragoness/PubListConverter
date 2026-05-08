@@ -1,8 +1,8 @@
 # PubListConverter
 A set of scripts that use Bib2Bib and Bibtex2HTML to produce neatly formatted HTML reference lists that are organized based on metadata.
-This project was created largely to simplify creating academic websites with links to full texts (especially via the ACM Author-Izer), hopefully you will find it helpful too. Examples of the resulting output can be found at my [PIxL Lab Publications Page](https://pixl.nmsu.edu/publications), as well as this sample:
+This project was created largely to simplify creating academic websites with links to full texts (especially via the ACM Author-Izer), hopefully you will find it helpful too. Here is a sample:
 
-> Z O. Toups, Nicole K. Crenshaw, Rina R. Wehbe, Gustavo F. Tondello, and Lennart E. Nacke. 2016. “The Collecting Itself Feels Good”: Towards Collection Interfaces for Digital Game Objects. In *Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY ’16)*. 276–290. [ bib | doi | full text via authorizer ]
+> Phoebe O. Toups Dugas, Nicole K. Crenshaw, Rina R. Wehbe, Gustavo F. Tondello, and Lennart E. Nacke. 2016. “The Collecting Itself Feels Good”: Towards Collection Interfaces for Digital Game Objects. In *Proceedings of the 2016 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY ’16)*. 276–290. [ bib | doi | full text via authorizer ]
 
 ## Capabilities:
 
@@ -34,7 +34,7 @@ These bash scripts are intended to be run at the Unix command line. The followin
 There are a few prerequisites to make use of the scripts. 
 
 1. The setup assumes you will have one or more bibliography web pages and that these can link to a single, separate page that will serve to provide raw BibTeX data. The BibTeX data page contents _will be generated automatically_, but the URL where they will reside is needed in advance to set up the links correctly.
-1. You will need a .BST file to drive the creation of the references page. Most academic fields already have one that is in wide use (I use the ACM SIGCHI .BST file, available from the [SIGCHI Conference Publications Format page](http://www.sigchi.org/publications/chipubform)).
+1. You will need a .BST file to drive the creation of the references page. Most academic fields already have one that is in wide use (I use the ACM Reference Format .BST file, available from the ACM as a [direct download](https://portalparts.acm.org/hippo/latex_templates/acmart-primary.zip)).
 
 ### Optional Modifications to Source BibTeX
 
@@ -68,12 +68,4 @@ If everything works correctly, you should get the following files:
 1. `mainPubs.html` - the main publications list with all publications and then sub lists of all sub projects (with headers that include anchors). Normally, the contents of this file can be copied and pasted into a website (note that this file only contains the HTML contents, no `<head>` or `<body>` tags, which makes it suitable for dropping into WordPress or similar sites).
 1. `mainPubs_bib.html` - a page that contains the BibTeX for each entry on the page above, with headers that include anchors based on cite key. This page should be copied to the URL specified as the separate BibTeX data page.
 1. A series of sub-project HTML pages, each named `<project identifier>SubPubs.html`. These are contatenated at the end of `mainPubs.html`, but could be used on their own. Note that Author-Izer links will only work if the page was previously authorized!
-
-For example, the following run produces the page at https://pixl.nmsu.edu/publications and https://pixl.nmsu.edu/pixl-pubs-bibtex. 
-
-`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" "" TeC "Team Coordination Game" photoNav "PhotoNav" DGO "Digital Game Objects" gameCoord "Coordination in Games"`
-
-The following produces the publications by me (author Toups):
-
-`./mainPubsGen.sh ../web/pixlPubs-raw.bib ../web/SIGCHI-Reference-Format.bst "https:\/\/pixl.nmsu.edu\/pixl-pubs-bibtex\/" "'Author : \"Toups\"'"`
 
